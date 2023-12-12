@@ -1,0 +1,44 @@
+﻿@using ApprenticeshipWebApplication.DTO
+@using ApprenticeshipWebApplication.Entities
+@model InsertAssignmentDTO
+<div class="container-fluid">
+
+<h2>Create a New Assignment</h2>
+<form method="post" action="/TeamLeader/CreateAssignment" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="trainingId" value="@ViewBag.trainingId" />
+
+    <div class="form-group">
+            <label asp-for="assignmentTitle">Assignment Title</label>
+            <input asp-for="assignmentTitle" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+            <label asp-for="assignmentDescription">Assignment Description</label>
+        <textarea asp-for="assignmentDescription" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+            <label asp-for="assignmentNotes">Assignment Notes</label>
+        <textarea asp-for="assignmentNotes" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="objectiveIds">Select Objectives</label>
+        <select asp-for="objectiveIds" class="form-control" asp-items="@(new SelectList(ViewBag.objectives, "objectiveId", "objectiveName"))" multiple>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="formFiles">Select Files</label>
+        <input type="file" id="formFiles" name="formFiles" multiple class="form-control" />
+
+    </div>
+    <label for="startDate">Start Date</label>
+    <input asp-for="startDate" class="form-control" type="date" />
+    <label for="endDate">End Date</label>
+    <input asp-for="endDate" class="form-control" type="date" />
+
+
+    <button type="submit" class="btn btn-primary">Add Assignment</button>
+</form>
+    </div>>

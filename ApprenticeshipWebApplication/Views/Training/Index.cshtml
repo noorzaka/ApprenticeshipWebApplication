@@ -1,0 +1,40 @@
+﻿@using ApprenticeshipWebApplication.Entities
+<div class="container-fluid">
+
+    <a class="btn btn-primary" href="/Training/Add">Set a new Training</a>
+    <br />
+    <br />
+
+    <table class="table table-striped">
+        <tr>
+            <th>Training Name</th>
+            <th>Student</th>
+            <th>Team Leader</th>
+            <th>School Supervisor</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Objectives</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        @foreach (var training in (List<Training>)ViewBag.trainings)
+        {
+                <tr>
+                    <td>@training.trainingName</td>
+                    <td>@training.student.firstName @training.student.lastName</td>
+                    <td>@training.teamLeader.firstName @training.teamLeader.lastName</td>
+                    <td>@training.schoolSupervisor.firstName @training.schoolSupervisor.lastName</td>
+                    <td>@training.startDate.ToString("yyyy-MM-dd")</td>
+                    <td>@training.endDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                    @foreach (var trainingObjective in training.trainingObjectives)
+                    {
+                                <div>@trainingObjective.objective.objectiveName</div>
+                    }
+                    </td>
+                    <td><button type="button" class="btn btn-light"> <a href="/Training/Edit?id=@training.trainingId">Edit</a></button></td>
+                    <td><button type="button" class="btn btn-danger"> <a href="/Training/Delete?id=@training.trainingId">Delete</a></button></td>
+                </tr>
+        }
+    </table>
+</div>

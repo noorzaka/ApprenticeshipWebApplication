@@ -1,0 +1,202 @@
+﻿@using ApprenticeshipWebApplication.Entities
+<style>
+    .custom-title {
+        font-size: 18px; /* Adjust the font size as needed */
+        font-weight: bold; /* Optional: Adjust the font weight */
+        color: #1E88E5; /* Optional: Adjust the color */
+    }
+
+    .custom-content {
+        font-size: 16px; /* Adjust the font size as needed */
+        color: #333; /* Optional: Adjust the color */
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Rejected Reports Card Example -->
+        <div class="col-lg-4 mb-4">
+            <a href="/Student/ViewRejectedReports" style="text-decoration: none; color: inherit;">
+                <div class="card bg-secondary text-white shadow">
+                    <div class="card-body">
+                        Rejected Reports
+                        <div class="text-white-50 small">@ViewBag.RejectedReportsCount</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Approved Reports Card Example -->
+        <div class="col-lg-4 mb-4">
+            <a href="/Student/ViewApprovedReports" style="text-decoration: none; color: inherit;">
+                <div class="card bg-success text-white shadow">
+                    <div class="card-body">
+                        Approved Reports
+                        <div class="text-white-50 small">@ViewBag.ApprovedReportsCount</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Pending Reports Card Example -->
+        <div class="col-lg-4 mb-4">
+            <a href="/Student/ViewPendingReports" style="text-decoration: none; color: inherit;">
+                <div class="card bg-light text-black shadow">
+                    <div class="card-body">
+                        Pending Reports
+                        <div class="text-black-50 small">@ViewBag.PendingReportsCount</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Training Skills Section -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100">
+                <div class="card-body">
+                    <h6 class="m-0 font-weight-bold text-success">Training Skills Overview</h6>
+                    <ul>
+                        @foreach (var skill in ViewBag.AllSkillsForTrainingObjectives)
+                        {
+                            <li>
+                                @if (ViewBag.AchievedSkills.Contains(skill))
+                                {
+                                    <i class="fas fa-check-circle text-success"></i>
+                                }
+                                @skill.skillName
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Time Remaining</h6>
+            </div>
+            <div class="card-body">
+                @foreach (var assignment in ViewBag.assignments)
+                {
+                    <p>
+                        <strong>Task Name:</strong> @assignment.assignmentTitle
+                    </p>
+                    <p>
+                        <strong>Time Remaining:</strong>
+                        @{
+                            var timeRemaining = assignment.TimeRemaining;
+
+                            if (timeRemaining.TotalDays >= 1)
+                            {
+                                <span>@timeRemaining.Days</span> <span>day(s)</span>
+                            }
+
+                            if (timeRemaining.TotalHours >= 1)
+                            {
+                                <span>@timeRemaining.Hours</span> <span>hour(s)</span>
+                            }
+
+                            if (timeRemaining.TotalDays < 1 && timeRemaining.TotalHours < 1)
+                            {
+                                <span>Less than an hour</span>
+                            }
+                        }
+                    </p>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <h2>My Tasks</h2>
+    <hr />
+    <br />
+    <div class="row">
+        @foreach (var assignment in (List<Assignment>)ViewBag.assignments)
+        {
+            <!-- Task Card -->
+            <div class="col-md-12 mb-6">
+                <div class="card border-left-primary shadow h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-12">
+                                <!-- Task Card Content -->
+
+                                <div class="custom-title text-uppercase">
+                                    Task Name
+                                </div>
+                                <div class="custom-content font-weight-bold text-gray-800">
+                                    @assignment.assignmentTitle
+                                </div>
+
+                                <div class="custom-title text-uppercase">
+                                    Training Name
+                                </div>
+                                <div class="custom-content font-weight-bold text-gray-800">
+                                    @assignment.training.trainingName
+                                </div>
+
+                                <div class="custom-title text-uppercase">
+                                    Description
+                                </div>
+                                <div class="custom-content">
+                                    @assignment.assignmentDescription
+                                </div>
+
+                                <div class="custom-title text-uppercase">
+                                    Notes
+                                </div>
+                                <div class="custom-content">
+                                    @assignment.assignmentNotes
+                                </div>
+                                <div class="custom-title text-uppercase">
+                                    Start Date
+                                </div>
+                                <div class="custom-content">
+                                    @assignment.startDate.ToString("yyyy-MM-dd")
+                                </div>
+
+                                <div class="custom-title text-uppercase">
+                                    End Date
+                                </div>
+                                <div class="custom-content">
+                                    @assignment.endDate.ToString("yyyy-MM-dd")
+                                </div>
+
+                             
+                                    <div class="custom-title text-uppercase">
+                                    Task attachments
+                                    
+                                </div>
+                                <div class="custom-content">
+                                       @foreach (var file in ViewBag.documentsByAssignment[assignment.assignmentId])
+                                {
+                                       <div><a href="/Student/GetDocument?documentId=@file.documentId">@file.documentName</a></div>
+                                }
+                
+                                </div>
+
+                                <div class="custom-title text-uppercase">
+                                    My Submission
+                                </div>
+
+                                <div class="custom-content">
+                                    <button type="button" class="btn btn-light">
+                                        <a href="/Student/ViewReports?assignmentId=@assignment.assignmentId">Submissions</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+
+        }
+
+       
+    </div>
+</div>

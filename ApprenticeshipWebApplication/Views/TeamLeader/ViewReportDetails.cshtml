@@ -1,0 +1,39 @@
+﻿@model ApprenticeshipWebApplication.Entities.Report
+<div class="container-fluid">
+
+<h2>Report Details</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Report Name</dt>
+        <dd class="col-sm-10">@Model.reportName</dd>
+
+        <dt class="col-sm-2">Report Description</dt>
+        <dd class="col-sm-10">@Model.reportDescription</dd>
+        <dt class="col-sm-2">Report Notes</dt>
+        <dd class="col-sm-10">@Model.reportNotes</dd>
+        <dt class="col-sm-2">Report Documents</dt>
+        @foreach (var file in ViewBag.reportDoc)
+        {
+            <div><a href="/Student/GetDocument?documentId=@file.documentId">@file.documentName</a></div>
+        }
+        
+
+    </dl>
+</div>
+
+<div>
+    @if (Model.reportStatusId == 2)
+    {
+        <form method="post" action="/TeamLeader/ApproveReport?assignmentId=@ViewBag.assignmentId&reportId=@ViewBag.reportId" style="display: inline-block;">
+            <input type="hidden" name="reportId" value="@Model.reportId" />
+            <button type="submit" class="btn btn-success">Approve</button>
+        </form>
+
+        <form method="post" action="/TeamLeader/RejectReport?assignmentId=@ViewBag.assignmentId&reportId=@ViewBag.reportId" style="display: inline-block;">
+            <input type="hidden" name="reportId" value="@Model.reportId" />
+        <button type="submit" class="btn btn-danger">Reject</button>
+    </form>
+    }
+</div>
+</div>

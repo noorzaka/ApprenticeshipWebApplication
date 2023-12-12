@@ -1,0 +1,50 @@
+﻿@using ApprenticeshipWebApplication.Entities
+<div class="container-fluid">
+
+<a class="btn btn-primary" href="/TeamLeader/AddAssignment?id=@ViewBag.trainingId">Add a new Assignment</a>
+<br />
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>Task Name</th>
+        <th>Description</th>
+        <th>Notes</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Objectives</th>
+        <th>Attatchement</th>
+        <th>View Task Reports</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var assignment in (List<Assignment>)ViewBag.assignments)
+    {
+        <tr>
+            <td>@assignment.assignmentTitle </td>
+            <td>@assignment.assignmentDescription</td>
+            <td>@assignment.assignmentNotes</td>
+              <td>@assignment.startDate.ToString("yyyy-MM-dd")</td>
+                <td>@assignment.endDate.ToString("yyyy-MM-dd")</td>
+
+            
+            <td>
+                @foreach (var assignmentObjective in assignment.assignmentObjectives)
+                {
+                    <div>@assignmentObjective.objective.objectiveName</div>
+                }
+            </td>
+                <td>
+                @foreach (var file in ViewBag.documentsByAssignment[assignment.assignmentId])
+                {
+                    <div><a href="/TeamLeader/GetDocument?documentId=@file.documentId">@file.documentName</a></div>
+                }
+            </td>
+            <td><button type="button" class="btn btn-light"> <a href="/TeamLeader/ViewAssignmentReports?assignmentId=@assignment.assignmentId">Reports</a></button></td>
+            <td><button type="button" class="btn btn-light"> <a href="/TeamLeader/EditAssignment?id=@assignment.assignmentId">Edit</a></button></td>
+            <td><button type="button" class="btn btn-danger"> <a href="/TeamLeader/DeleteAssignment?assignmentId=@assignment.assignmentId&trainingId=@ViewBag.trainingId">Delete</a></button></td>
+
+        </tr>
+    }
+</table>
+</div>

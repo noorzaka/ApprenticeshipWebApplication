@@ -1,0 +1,26 @@
+﻿@using ApprenticeshipWebApplication.Entities
+<div class="container-fluid">
+
+<table class="table table-striped">
+    <tr>
+        <th>Report Name</th>
+        <th>Report Description</th>
+        <th>Report Status</th>
+        <th>View Report Details</th>
+    </tr>
+    @foreach (var report in (List<Report>)ViewBag.reports)
+    {
+        <tr>
+            <td>@report.reportName</td>
+            <td>@report.reportDescription</td>
+            <td>@report.reportStatus.reportStatusName</td>
+            <td><button type="button" class="btn btn-light"><a href="/TeamLeader/ViewReportDetails?reportId=@report.reportId&assignmentId=@ViewBag.assignmentId">ViewReport</a>
+
+     </button></td>
+
+            
+
+        </tr>
+    }
+</table>
+</div>

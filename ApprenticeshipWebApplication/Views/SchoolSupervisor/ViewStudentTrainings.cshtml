@@ -1,0 +1,34 @@
+﻿@using ApprenticeshipWebApplication.Entities
+<h3>Apprnticeship</h3>
+<table class="table table-striped">
+    <tr>
+        <th>Training Name</th>
+        <th>Student</th>
+        <th>Team Leader</th>
+        <th>School Supervisor</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Objectives</th>
+        <th>Tasks</th>
+    </tr>
+    @foreach (var training in (List<Training>)ViewBag.trainings)
+    {
+        <tr>
+            <td>@training.trainingName</td>
+            <td>@training.student.firstName @training.student.lastName</td>
+            <td>@training.teamLeader.firstName @training.teamLeader.lastName</td>
+            <td>@training.schoolSupervisor.firstName @training.schoolSupervisor.lastName</td>
+            <td>@training.startDate.ToString("MM/dd/yyyy")</td>
+            <td>@training.endDate.ToString("MM/dd/yyyy")</td>
+            <td>
+                @foreach (var trainingObjective in training.trainingObjectives)
+                {
+                    <div>@trainingObjective.objective.objectiveName</div>
+                }
+            </td>
+            <td><button type="button" class="btn btn-light"> <a href="/SchoolSupervisor/ViewTrainingAssignments?id=@training.trainingId">Tasks</a></button></td>
+        </tr>
+    }
+</table>
+
+

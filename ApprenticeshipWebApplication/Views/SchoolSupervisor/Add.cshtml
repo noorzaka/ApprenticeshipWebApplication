@@ -1,0 +1,63 @@
+﻿@using ApprenticeshipWebApplication.DTO;
+@using ApprenticeshipWebApplication.Entities
+@model InsertSchoolSupervisorDTO
+<div class="container-fluid">
+
+<form action="/SchoolSupervisor/Create">
+        <h2>Adding a new School Supervisor.</h2>
+        <hr />
+
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input asp-for="firstName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="secondName" class="form-label">Second Name</label>
+            <input asp-for="secondName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="thirdName" class="form-label">Third Name</label>
+            <input asp-for="thirdName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input asp-for="lastName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input asp-for="email" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input asp-for="phoneNumber" class="form-control" />
+        </div>
+
+      <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input asp-for="password" type="password" class="form-control" />
+</div>
+
+<div class="mb-3">
+    <label for="confirmedPassword" class="form-label">Confirmed Password</label>
+    <input asp-for="confirmedPassword" type="password" class="form-control" />
+</div>
+
+
+        <div class="mb-3">
+            <label for="schoolId" class="form-label">School</label>
+            <select name="schoolId" class="form-control">
+                @foreach (var school in (List<School>)ViewBag.schools)
+                {
+                    <option value="@school.schoolId">@school.schoolName</option>
+                }
+            </select>
+        </div>
+
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+    </form>
+</div>

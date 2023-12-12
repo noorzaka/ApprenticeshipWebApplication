@@ -1,0 +1,56 @@
+﻿<div class="container-fluid">
+    <div class="row">
+
+        @foreach (var viewModel in ViewBag.TrainingViewModels)
+        {
+            <div class="col-xl-6 col-md-12 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Training Name
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@viewModel.Training.trainingName</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Student Name
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@viewModel.Training.student.firstName @viewModel.Training.student.lastName</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                School Supervisor Name
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@viewModel.Training.schoolSupervisor.firstName @viewModel.Training.teamLeader.lastName</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Start Date
+                            </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@viewModel.Training.startDate.ToString("yyyy-MM-dd")</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    End Date
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@viewModel.Training.endDate.ToString("yyyy-MM-dd")</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Achieved Objectives
+                            </div>
+                            @foreach (var objective in viewModel.AchievedObjectives)
+                            {
+                                <p>
+                                    <i class="fas fa-check-circle text-blue"></i> <!-- Add this line for the check icon -->
+                            @objective.objectiveName
+                                </p>
+                            }
+
+                            <button type="button" class="btn btn-light">
+                                <a href="/Teamleader/ViewAssignments?id=@viewModel.Training.trainingId">View Tasks</a>
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+
+</div>

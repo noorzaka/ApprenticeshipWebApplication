@@ -1,0 +1,36 @@
+﻿@using ApprenticeshipWebApplication.DTO
+@using ApprenticeshipWebApplication.Entities
+@model InsertReportDTO
+<div class="container-fluid">
+
+<h2>Submit New Report</h2>
+<form method="post" action="/Student/CreateNewReport" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="assignmentId" value="@ViewBag.assignmentId" />
+
+    <div class="form-group">
+        <label asp-for="reportName">Report Name</label>
+        <input asp-for="reportName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="reportDescription">Report Description</label>
+        <textarea asp-for="reportDescription" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="reportNotes">Report Notes</label>
+        <textarea asp-for="reportNotes" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="formFiles">Select Files</label>
+        <input type="file" id="formFiles" name="formFiles" multiple class="form-control" />
+
+    </div>
+
+
+   
+
+    <button type="submit" class="btn btn-primary">Submit Report</button>
+</form>
+</div>

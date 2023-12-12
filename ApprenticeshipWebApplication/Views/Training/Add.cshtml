@@ -1,0 +1,50 @@
+﻿@using ApprenticeshipWebApplication.DTO;
+@using ApprenticeshipWebApplication.Entities
+@model InsertTrainingDTO
+<div class="container-fluid">
+    <h2>Set a new Training .</h2>
+
+<form action="/Training/Create">
+    <!-- Add form fields for TrainingDTO properties -->
+      <label for="trainingName">Training Name</label>
+       <input asp-for="trainingName" class="form-control" type="text" />
+        <label for="studentId">Select Student</label>
+        <select name="studentId" class="form-control">
+            @foreach (var student in (List<Student>)ViewBag.students)
+            {
+                <option value="@student.Id">@student.firstName @student.lastName</option>
+            }
+        </select>
+    
+
+        <label for="teamLeaderId">Select Team Leader</label>
+        <select name="teamLeaderId" class="form-control">
+            @foreach (var teamLeader in (List<TeamLeader>)ViewBag.teamLeaders)
+            {
+                <option value="@teamLeader.Id">@teamLeader.firstName @teamLeader.lastName</option>
+            }
+        </select>
+
+        <label for="schoolSupervisorId">Select School Supervisor</label>
+        <select name="schoolSupervisorId" class="form-control">
+            @foreach (var schoolSupervisor in (List<SchoolSupervisor>)ViewBag.schoolSupervisors)
+            {
+                <option value="@schoolSupervisor.Id">@schoolSupervisor.firstName @schoolSupervisor.lastName</option>
+            }
+        </select>
+
+        <label for="objectiveIds">Select Objectives</label>
+        <select name="objectiveIds" class="form-control" multiple>
+            @foreach (var objective in (List<Objective>)ViewBag.objectives)
+            {
+                <option value="@objective.objectiveId">@objective.objectiveName</option>
+            }
+        </select>
+        <label for="startDate">Start Date</label>
+        <input asp-for="startDate" class="form-control" type="date" />
+        <label for="endDate">End Date</label>
+         <input asp-for="endDate" class="form-control" type="date" />
+
+    <button type="submit" class="w-100 btn btn-lg btn-primary">Create</button>
+</form>
+</div>

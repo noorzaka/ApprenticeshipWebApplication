@@ -1,0 +1,51 @@
+﻿@using ApprenticeshipWebApplication.Entities
+<div class="container-fluid">
+
+<a class="btn btn-primary" href="/SchoolSupervisor/Add">Add new School supervisor</a>
+<br />
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>First Name</th>
+        <th>Second Name</th>
+        <th>Third Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>School</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr>
+        @foreach (var s in (List<SchoolSupervisor>)ViewBag.schoolSupervisors)
+        {
+        <tr>
+            <td>@s.firstName</td>
+            <td>@s.secondName</td>
+            <td>@s.thirdName</td>
+            <td>@s.lastName</td>
+            <td>@s.Email</td>
+            <td>@s.PhoneNumber</td>
+            <td>@s.school.schoolName</td>
+            <td> <button type="button" class="btn btn-light"><a href="/SchoolSupervisor/Edit?Id=@s.Id">Edit</a></button></td>
+            <td>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete('@s.Id')">Delete</button>
+            </td>
+
+
+        </tr>
+        }
+
+
+
+
+</table>
+</div>
+<script>
+    function confirmDelete(SchoolSupervisorId) {
+        if (confirm('Are you sure you want to delete this School supervisor?')) {
+            window.location.href = '/SchoolSupervisor/Delete?Id=' + SchoolSupervisorId;
+        }
+    }
+</script>

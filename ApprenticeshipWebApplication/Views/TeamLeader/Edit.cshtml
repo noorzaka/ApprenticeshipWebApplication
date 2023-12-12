@@ -1,0 +1,65 @@
+﻿@using ApprenticeshipWebApplication.Entities
+@using ApprenticeshipWebApplication.DTO
+@model UpdateTeamLeaderDTO
+<div class="container-fluid">
+
+    <form action="/TeamLeader/Update">
+        <h2>Edit Team Leader Info.</h2>
+        <hr />
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <label asp-for="firstName">First Name</label>
+                    <input asp-for="firstName" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <label asp-for="secondName">Second Name</label>
+                    <input asp-for="secondName" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <label asp-for="thirdName">Third Name</label>
+                    <input asp-for="thirdName" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <label asp-for="lastName">Last Name</label>
+                    <input asp-for="lastName" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-floating">
+            <label asp-for="phoneNumber">Phone Number</label>
+            <input asp-for="phoneNumber" class="form-control" />
+        </div>
+
+        <div class="form-floating">
+            <label>Company</label>
+            <select name="companyId" class="form-control">
+                @foreach (var c in (List<Company>)ViewBag.companies)
+                {
+                    @if (Model.companyId == c.companyId)
+                    {
+                        <option selected="selected" value="@c.companyId">@c.companyName</option>
+                    }
+                    else
+                    {
+                        <option value="@c.companyId">@c.companyName</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+    </form>
+</div>

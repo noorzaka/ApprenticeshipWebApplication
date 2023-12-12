@@ -1,0 +1,43 @@
+﻿@using ApprenticeshipWebApplication.DTO
+@using ApprenticeshipWebApplication.Entities
+@model UpdateReportDTO
+<div class="container-fluid">
+
+<h2>Submit New Report</h2>
+<form method="post" action="/Student/UpdateReport" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="reportId"  />
+
+    <div class="form-group">
+        <label asp-for="reportName"></label>
+        <input asp-for="reportName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="reportDescription"></label>
+        <textarea asp-for="reportDescription" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="reportNotes"></label>
+        <textarea asp-for="reportNotes" class="form-control"></textarea>
+    </div>
+     <h4>Attachments</h4>
+    @foreach (var document in ViewBag.documents)
+    {
+            <div>
+                <a href="/Student/GetDocument?documentId=@document.documentId">@document.documentName</a>
+                <a class="btn btn-danger btn-sm" href="/Student/DeleteDocument?documentId=@document.documentId&assignmentId=@ViewBag.assignmentId&reportId=@ViewBag.reportId">Delete</a>
+            </div>
+    }
+    <div class="form-group">
+        <label for="formFiles">Select Files</label>
+        <input type="file" id="formFiles" name="formFiles" multiple class="form-control" />
+
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Update Report</button>
+</form>
+</div>

@@ -1,0 +1,36 @@
+﻿@using ApprenticeshipWebApplication.Entities
+
+<h3>View student Tasks</h3>
+
+<table class="table table-striped">
+    <tr>
+        <th>Task Name</th>
+        <th>Description</th>
+        <th>Notes</th>
+        <!--<th>Start Date</th>-->
+        <!--<th>End Date</th>-->
+        <th>Objectives</th>
+        <th>View Task Reports</th>
+        
+    
+    </tr>
+    @foreach (var assignment in (List<Assignment>)ViewBag.assignments)
+    {
+            <tr>
+                <td>@assignment.assignmentTitle </td>
+                <td>@assignment.assignmentDescription</td>
+                <td>@assignment.assignmentNotes</td>
+
+                <td>
+                @foreach (var assignmentObjective in assignment.assignmentObjectives)
+                {
+                            <div>@assignmentObjective.objective.objectiveName</div>
+                }
+                </td>
+         
+                <td><button type="button" class="btn btn-light"> <a href="/SchoolSupervisor/ViewAssignmentReports?assignmentId=@assignment.assignmentId">Reports</a></button></td>
+      
+
+            </tr>
+    }
+</table>

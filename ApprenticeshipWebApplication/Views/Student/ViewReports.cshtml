@@ -1,0 +1,48 @@
+﻿@using ApprenticeshipWebApplication.Entities
+<div class="container-fluid">
+
+<a class="btn btn-primary" href="/Student/SubmitNewReport?assignmentId=@ViewBag.assignmentId">Submit new Report</a>
+<br />
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>Report Name</th>
+        <th>Report Description</th>
+        <th>Report Notes</th>
+        <th>Report Attatchement</th>
+        <th>Report Status</th>
+        <th>Edit</th>
+    </tr>
+    @foreach (var report in (List<Report>)ViewBag.reports)
+    {
+        <tr>
+            <td>@report.reportName</td>
+            <td>@report.reportDescription</td>
+            <td>@report.reportNotes</td>
+             <td>
+                @foreach (var file in ViewBag.documentsByReport[report.reportId])
+                {
+                    <div><a href="/Student/GetDocument?documentId=@file.documentId">@file.documentName</a></div>
+                }
+                </td>
+            <td>@report.reportStatus.reportStatusName</td>
+
+            @if (report.reportStatusId == 1)
+            {
+                <td></td> <!-- Empty cell for disabled Edit button -->
+            }
+            else
+            {
+                <td>
+                    <button type="button" class="btn btn-light">
+                        <a href="/Student/EditReport?reportId=@report.reportId&assignmentId=@report.assignmentId">Edit</a>
+
+                    </button>
+                </td>
+            }
+          
+        </tr>
+    }
+</table>
+</div>

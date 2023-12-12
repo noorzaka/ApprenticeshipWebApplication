@@ -1,0 +1,85 @@
+﻿@using ApprenticeshipWebApplication.DTO;
+@using ApprenticeshipWebApplication.Entities
+@model UpdateTrainingDTO
+<div class="container-fluid">
+    <h2>Edit Training Info.</h2>
+
+<form asp-controller="Training" asp-action="Update" method="post">
+    <input type="hidden" asp-for="id" />
+    <label for="trainingName">Training Name</label>
+    <input asp-for="trainingName" class="form-control" type="text" />
+    <label for="studentId">Select Student</label>
+    <select name="studentId" class="form-control">
+       @foreach (var s in (List<Student>)ViewBag.students)
+            {
+                @if (Model.studentId == s.Id)
+                {
+                <option selected="selected" value="@s.Id">@s.firstName @s.secondName @s.thirdName @s.lastName</option>
+            }
+            else
+            {
+                <option value="@s.Id">@s.firstName @s.secondName @s.thirdName @s.lastName</option>
+
+            }
+
+            }
+      
+
+    </select>
+  
+    <label for="teamLeaderId">Select Team Leader</label>
+    <select name="teamLeaderId" class="form-control">
+        @foreach (var t in (List<TeamLeader>)ViewBag.teamLeaders)
+        {  @if (Model.teamLeaderId == t.Id)
+            {
+                <option selected="selected" value="@t.Id">@t.firstName @t.secondName @t.thirdName @t.lastName</option>
+            }
+            else
+            {
+                <option value="@t.Id">@t.firstName @t.lastName</option>
+
+            }
+        }
+    </select>
+
+    <label for="schoolSupervisorId">Select School Supervisor</label>
+    <select name="schoolSupervisorId" class="form-control">
+        @foreach (var schoolSupervisor in (List<SchoolSupervisor>)ViewBag.schoolSupervisors)
+        {    @if (Model.schoolSupervisorId == schoolSupervisor.Id)
+            {
+                <option selected="selected" value="@schoolSupervisor.Id">@schoolSupervisor.firstName @schoolSupervisor.secondName @schoolSupervisor.thirdName @schoolSupervisor.lastName</option>
+            }
+            else
+            {
+                <option value="@schoolSupervisor.Id">@schoolSupervisor.firstName @schoolSupervisor.lastName</option>
+
+
+            }
+
+        }
+    </select>
+    <label for="objectiveIds">Select Objectives</label>
+    <select name="objectiveIds" class="form-control" multiple>
+    @foreach (var objective in (List<Objective>)ViewBag.objectives)
+    {
+        @if (Model.objectiveIds.Contains(objective.objectiveId))
+        {
+            <option selected="selected" value="@objective.objectiveId">@objective.objectiveName</option>
+        }
+        else
+        {
+            <option value="@objective.objectiveId">@objective.objectiveName</option>
+        }
+    }
+    </select>
+
+    
+    <label for="startDate">Start Date</label>
+    <input asp-for="startDate" class="form-control" type="date" />
+    <label for="endDate">End Date</label>
+    <input asp-for="endDate" class="form-control" type="date" />
+
+    <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
+</form>
+</div>
+
